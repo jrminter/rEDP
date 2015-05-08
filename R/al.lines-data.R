@@ -12,4 +12,5 @@
 #' \code{l} A numeric vector with the l index
 #' @source J. R Minter, recorded 2013-01-15
 #' @author John Minter, 2013-01-15
+#'
 NULL

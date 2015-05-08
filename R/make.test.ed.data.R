@@ -15,12 +15,15 @@
 #' # not run
 make.test.ed.data <-
 function(dir='./'){
-  data(al.lines)
-  data(al.edp)
   str.edp   <- paste(dir,'Al-dc-ra.csv',sep='')
-  write.csv(al.edp, file=str.edp,
+  # Note the use of the namespace - rEDP::al.edp
+  # this gets around an annoying no-visible-binding-for-global-variable
+  # warning
+  # see Peter Dalgaard's comment Aug 27, 2014; 3:05pm
+  # http://r.789695.n4.nabble.com/no-visible-binding-for-global-variable-for-data-sets-in-a-package-td4696053.html
+  write.csv(rEDP::al.edp, file=str.edp,
   	        row.names=FALSE, quote=FALSE )
   str.lines <-  paste(dir,'04-0787-Al-Fm3m.csv',sep='')
-  write.csv(al.lines, file=str.lines,
+  write.csv(rEDP::al.lines, file=str.lines,
   	        row.names=FALSE, quote=FALSE )
 }

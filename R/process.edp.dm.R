@@ -33,8 +33,6 @@ function(dat.path="./",
   # tune the background for a radially-averaged EDP
   # assumes radial dist'n data from V. Hou/J. Minter DigitalMicrograph
   # plug-in 'EDP'
-  require(Peaks)
-
   edp.file <- paste(dat.path, edp.base,
                     '-dc-ra.csv', sep='')
   df.dat <- read.csv(edp.file, header = T, sep=",")

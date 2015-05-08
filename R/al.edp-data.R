@@ -1,7 +1,7 @@
 #' @name al.edp
 #' @aliases al.edp
 #' @title electron diffraction profile from Al
-#' @description A radial profile from a distortion-corrected 
+#' @description A radial profile from a distortion-corrected
 #' electron diffraction pattern from polycrystalline Al recorded
 #' at 200 kV with an nominal camera length of 340 mm using a
 #' FEI CM20UT and a Gatan 894 UltrascanmCCD camera. The sample
@@ -13,4 +13,5 @@
 #' \code{i} A numeric vector containing the radially-averaged raw intesity.
 #' @source J. R Minter, recorded 2013-01-15
 #' @author John Minter, 2013-01-15
+#'
 NULL
