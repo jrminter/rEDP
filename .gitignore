@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.DS_Store
+README.html
+# data directory
+data/.DS_Store
+# man directory
+man/.DS_Store
+# don't track auto-generated documentation
+man/*.Rd
+# R directory
+R/.DS_Store
+
