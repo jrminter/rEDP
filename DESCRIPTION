@@ -1,6 +1,6 @@
 Package: rEDP
 Title: Process electron diffaction patterns
-Version: 1.0.12
+Version: 1.0.13
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Analyze electron diffraction patterns. Calibrate, subtract continuum, find peaks, compare to standards.

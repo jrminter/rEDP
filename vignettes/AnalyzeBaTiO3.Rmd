@@ -1,0 +1,128 @@
+---
+title: "Analyze BaTiO3 Nanoparticles"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Spectrum Deconvolution}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+
+This example demonstrates the use of rEDP for crystallographic phase analysis.
+
+## Set up an environment
+
+First, create a clean environment and load the packages we need. We will work in our `$TEMP` directory where we will write the data files.
+
+```{r}
+rm(list=ls())
+library(rPeaks)
+library(rEDP)
+
+tmp <- Sys.getenv("TEMP")
+tmp <- gsub("\\\\", "/", tmp)
+tmp <- paste0(tmp,'/')
+```
+## Create the data files
+
+Next, create the data files we need
+
+```{r}
+make.test.ed.data(dir=tmp)
+```
+
+## Measure the camera constant
+
+Here we measure the camera constant using the first five lines of Al.
+
+```{r, fig.width=7}
+cc <- meas.camera.constant(cnt.dir=tmp, icdd.dir=tmp)
+```
+
+We see we got a plot of the background subtracted data with the fit of the first five peaks shown in red. The peak centroids are marked in blue. The fit looks good. Now let's look at the statistics that  `meas.camera.constant` returned.
+
+
+```{r}
+print(cc)
+```
+
+First we get the camera constant and the standard error in units of px·Å. We have assumed the default pixel size (15 µm) for our CCD camera and also reported the camera constant in units of m·Å. Finally, we report the half width at half maximum of the peaks in pixels. The value we want is `r cc[1]`.
+
+## Tune the TiO3 baseline
+
+```{r, fig.width=7}
+str.bas        <- 'BaTiO3'
+dat.dir        <- tmp
+batio3.r.min   <- 160
+batio3.r.max   <- 950
+batio3.bk.win  <- '11'
+batio3.bk.ord  <- '6'
+
+ba.ti.o3.pars <- tune.edp.baseline.dm(dat.path=dat.dir,
+                                      edp.base=str.bas,
+                                      r.min=batio3.r.min,
+                                      r.max=batio3.r.max,
+                                      sb.win=batio3.bk.win,
+                                      sb.ord=batio3.bk.ord,
+                                      do.log=FALSE)
+```
+
+This looks pretty good.
+
+## Phase analysis
+
+Now we want to compare the background-subtracted pattern to known phases. Since we want to make a more complicated plot, we pass `do.plot=FALSE` to `process.edp.dm`.
+
+```{r, fig.width=7}
+icdd.dir       <- tmp
+dat.dir        <- tmp
+str.base       <- 'BaTiO3'
+str.card.c     <- '05-0626-BaTiO3-P4mm'
+str.card.h     <- '34-0129-BaTiO3-P63mmc'
+batio3.r.min   <- 160
+batio3.r.max   <- 950
+batio3.bk.win  <- '11'
+batio3.bk.ord  <- '6'
+
+df.batio3  <- process.edp.dm(dat.path=dat.dir,
+                             edp.base=str.base,
+                             r.min=batio3.r.min,
+                             r.max=batio3.r.max,
+                             sb.win=batio3.bk.win,
+                             sb.ord=batio3.bk.ord,
+                             cc.mu.px.A=cc[1],
+                             do.plot=FALSE,
+                             do.log=FALSE)
+
+k.min <- min(df.batio3$k)
+k.max <- max(df.batio3$k)
+i.max <- 1.05*max(df.batio3$int.net)
+k.t <- c(k.min, k.max)
+y.t <- c(0.01,i.max)
+
+plot(k.t, y.t, type='n', xlab='k (2*pi/d) [nm]',
+     ylab='net counts',
+     main=NA)
+lines(df.batio3$k, df.batio3$int.net, col='black')
+
+add.icdd.lines(path=icdd.dir,
+               card=str.card.c,
+               max.ht=max(df.batio3$int.net),
+               l.col='blue',
+               do.legend=FALSE)
+add.icdd.lines(path=icdd.dir,
+               card=str.card.h,
+               max.ht=max(df.batio3$int.net),
+               l.col='red',
+               do.legend=FALSE)
+l.text <- c('data', str.card.c, str.card.h)
+l.col  <- c('black', 'blue', 'red')
+legend("topright", l.text, col=l.col, lty=1)
+```
+
+Note how the data agrees better with the cubic phase.
+
+

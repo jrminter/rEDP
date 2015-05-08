@@ -45,9 +45,8 @@ We see we got a plot of the background fit. it does not look too bad. Now let's 
 
 
 ```{r}
-
 print(str(bl))
 ```
-We see that we got a list of five items. The first two items are the starting and ending radii for the fit, in pixels. The second two items are the size of the window (always odd, and expressed as a string) and the order of the fit (always even, between 2 and 8, and expressed as a string.) Finally, we get a data fram containing the radius(px), raw intensity, and background subtracted intensity as columns. This gives us lots of control...
+We see that we got a list of five items. The first two items are the starting and ending radii for the fit, in pixels. The second two items are the size of the window (always odd, and expressed as a string) and the order of the fit (always even, between 2 and 8, and expressed as a string.) Finally, we get a data frame containing the radius (px), raw intensity, and background subtracted intensity as columns. This gives us lots of control...
 
 

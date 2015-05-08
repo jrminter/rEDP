@@ -1,0 +1,53 @@
+---
+title: "Measure Camera Constant"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Spectrum Deconvolution}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+
+This example demonstrates the use of rEDP for measuring the camera constant.
+
+## Set up an environment
+
+First, create a clean environment and load the packages we need. We will work in our `$TEMP` directory.
+
+```{r}
+rm(list=ls())
+library(rPeaks)
+library(rEDP)
+
+tmp <- Sys.getenv("TEMP")
+tmp <- gsub("\\\\", "/", tmp)
+tmp <- paste0(tmp,'/')
+print(tmp)
+```
+## Create some data
+
+Next, create the data we need
+
+```{r}
+make.test.ed.data(dir=tmp)
+```
+
+## Measure the camera constant
+
+Here we measure the camera constant using the first five lines.
+
+```{r, fig.width=7}
+cc <- meas.camera.constant(cnt.dir=tmp, icdd.dir=tmp)
+```
+
+We see we got a plot of the background subtracted data with the fit of the first five peaks shown in red. The peak centroids are marked in blue. The fit looks good. Now let's look at the statistics that  `meas.camera.constant` returned.
+
+
+```{r}
+print(cc)
+```
+
+First we get the camera constant and the standard error in units of px·Å. We have assumed the default pixel size (15 µm) for our CCD camera and also reported the camera constant in units of m·Å. Finally, we report the half width at half maximum of the peaks in pixels.

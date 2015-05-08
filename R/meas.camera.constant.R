@@ -18,7 +18,7 @@
 #' @param sp.grp Space group as a string - Fm3m
 #' @param pk.sigma sigma for the peak detection
 #' @param pk.thres threshold value for the peak detection
-#' @param ccd.px.mm mm/px for the ccd
+#' @param ccd.px.um um/px for the ccd
 #' @param do.plot Plot the results
 #' @param do.log.y Use a log intensity axis
 #' @param ... Other graphical parameters
@@ -35,7 +35,7 @@ meas.camera.constant <-
 function(cnt.dir='./', cnt.base='Al', r.min=250, r.max=800,
          sb.win='15', sb.ord='6', hw.hm=4,
          icdd.dir='./', icdd.no='04-0787', compound='Al', sp.grp='Fm3m',
-         pk.sigma=4.0, pk.thres=0.8, ccd.px.mm=15,
+         pk.sigma=4.0, pk.thres=0.8, ccd.px.um=15,
          do.plot=TRUE, do.log.y=FALSE, ...){
   # measure the camera constant using the first
   # five lines of the standard
@@ -51,8 +51,8 @@ function(cnt.dir='./', cnt.base='Al', r.min=250, r.max=800,
   # First 5 d-spacings of standard [A]
   v.d     <- df.std[1:5,1]
   v.h     <- df.std[1:5,2]
-  # physical pixel spacing mm/px for the CCD camera [mm]
-  pixel <- ccd.px.mm/1000
+  # pixel: physical pixel spacing mm/px for the CCD camera [mm]
+  pixel <- ccd.px.um/1000
   count.file <- paste(cnt.dir,cnt.base,'-dc-ra.csv', sep='')
   df.dat <- read.csv(count.file, header = T, sep=',')
   names(df.dat) <-c("r.px","int.gross")

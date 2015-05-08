@@ -1,6 +1,6 @@
-#' Add diffraction lines from icdd card
+#' Add diffraction lines from an ICDD card
 #'
-#' Load the d-spacings and intensities for an icdd file
+#' Load the d-spacings and intensities for an ICDD file
 #' from a .csv file and plot them on the active graph.
 #'
 #' @param path Path
@@ -8,7 +8,7 @@
 #' @param max.ht Maximum plot height
 #' @param l.col Color for the lines
 #' @param do.legend TRUE or FALSE whether to print legend text
-#' @param do.debug TRUE or FALSE whether to print out diagnostice
+#' @param do.debug TRUE or FALSE whether to print out diagnostics
 #'
 #' @export
 #'
