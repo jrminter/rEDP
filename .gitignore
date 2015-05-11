@@ -12,3 +12,4 @@ man/*.Rd
 # R directory
 R/.DS_Store
 
+inst/doc
