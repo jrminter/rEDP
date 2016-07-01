@@ -3,12 +3,15 @@ Title: Process electron diffaction patterns
 Version: 1.0.13
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
-Description: Analyze electron diffraction patterns. Calibrate, subtract continuum, find peaks, compare to standards.
-Depends: 
+Description: Analyze electron diffraction patterns. Calibrate, subtract
+    continuum, find peaks, compare to standards.
+Depends:
     R (>= 3.2.0)
-Imports: 
+Imports:
     rPeaks
 License: GPL (>=2)
 LazyData: true
-Suggests: knitr
+Suggests:
+    knitr
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
